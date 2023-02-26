@@ -1,0 +1,17 @@
+version: '3'
+services:
+  nginx:
+    image: jwilder/nginx-proxy:latest
+    ports:
+      - "3069:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - DEFAULT_HOST=porxy.example
+  app:
+    build: ./app
+    ports:
+      - "8080"
+    environment:
+      - VIRTUAL_HOST=porxy.example
+    restart: always
